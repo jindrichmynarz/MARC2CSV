@@ -23,7 +23,7 @@ class CSV2MARC (object):
     try:
       self.reader = csv.reader(
         open(filepath, "r"),
-        delimiter=","
+        delimiter = ","
       )
     except IOError:
       print >>sys.stderr, "Cannot open {0}".format(filepath)
@@ -47,17 +47,17 @@ class CSV2MARC (object):
       return True
     else:
       return False
-     
-  def writeMARCRecord(self, record):
-    writer = MARCWriter(self.file)
-    writer.write(record)
   
-  def hasRecordChanged(self, sysno):
+  def checkRecordChange(self, sysno):
     if not (sysno == self.sysno):
       return True
     else:
       return False
   
+  def writeMARCRecord(self, record):
+    writer = MARCWriter(self.file)
+    writer.write(record)
+    
   def getNewRecord(self, sysno):
     self.sysno = sysno
     self.record = Record()
@@ -80,12 +80,6 @@ class CSV2MARC (object):
         tag = line["fieldTag"],
         data = line["value"]
       )
-  
-  def checkMissing246(self, line):
-    if line["sysno"] == "000649385" and line["value"] == "Řada bezpečnostního inženýrství":
-      return True
-    else:
-      return False
         
   def main(self):
     for line in self.reader:
@@ -100,21 +94,11 @@ class CSV2MARC (object):
         "subfieldLabelOccurrence" : line[6],
         "value" : line[7],
       }
-      #print line
-      #print "self.sysno: " + str(self.sysno)
-      #print "self.fieldTag: " + str(self.fieldTag)
-      #print "self.fieldTagOccurrence: " + str(self.fieldTagOccurrence)
-      #print "self.subfieldLabel: " + str(self.subfieldLabel)
-      #print "self.subfieldLabelOccurrence: " + str(self.subfieldLabelOccurrence)
-      
-      #if self.checkMissing246(line): # Added for testing the missing field
-      #  self.line = line
-      #  break
         
       if not self.sysno:
         #print "[INFO] New record"
         self.getNewRecord(line["sysno"])
-      if self.hasRecordChanged(line["sysno"]):
+      if self.checkRecordChange(line["sysno"]):
         #print "[INFO] New record 2"
         self.record.add_field(self.field) # Add the last field of the previous record
         self.field = False # Remove the last field of the previous record
