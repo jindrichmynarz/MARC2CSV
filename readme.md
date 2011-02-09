@@ -7,6 +7,8 @@ System number, field tag, number of field's occurrence, first indicator, secord 
 
 `csv2marc.py` converts CSV to MARC. It takes the CSV with the same structure as is in the output of `marc2csv.py`. Usage: `$ ./csv2marc.py csv_file`. The script produces a file named `csv_file.mrc`.
 
+There is also a script to patch the CSVs generated from MARC - `patchMARCCSV.py`. It can be used to apply patches to a CSV file (e.g., clean values, strip characters). The patch has the same structure as the CSV file. Usage: `$ ./patchMARCCSV.py input.csv patch.csv output.csv`.
+
 Requirements
 ------------
 
