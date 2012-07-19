@@ -1,9 +1,18 @@
 MARC to CSV and CSV to MARC converters
 ======================================
 
-`marc2csv.py` converts MARC to CSV. Usage: `$ ./marc2csv.py marc_file`. This creates a file named `marc_file.csv`. The outputted CSV has this header:
+The scripts for converting [MARC](http://loc.gov/marc/ "MAchine Readable Cataloging") to [CSV](http://tools.ietf.org/html/rfc4180 "Comma-Separated Values") and back are intended to make traditional library data amenable to processing by common tools (e.g., command-line tools).
+  
+`marc2csv.py` converts MARC to CSV. Usage: `$ ./marc2csv.py marc_file`. This creates a file named `marc_file.csv`. The outputted CSV has the following header:
 
-System number, field tag, number of field's occurrence, first indicator, secord indicator, subfield label, number of subfield's occurrence, value
+* System number
+* field tag
+* number of field's occurrence
+* first indicator
+* secord indicator
+* subfield label
+* number of subfield's occurrence
+* value
 
 `csv2marc.py` converts CSV to MARC. It takes the CSV with the same structure as is in the output of `marc2csv.py`. Usage: `$ ./csv2marc.py csv_file`. The script produces a file named `csv_file.mrc`.
 
