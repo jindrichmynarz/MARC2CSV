@@ -96,10 +96,8 @@ class CSV2MARC (object):
       }
         
       if not self.sysno:
-        #print "[INFO] New record"
         self.getNewRecord(line["sysno"])
       if self.checkRecordChange(line["sysno"]):
-        #print "[INFO] New record 2"
         self.record.add_field(self.field) # Add the last field of the previous record
         self.field = False # Remove the last field of the previous record
         self.fieldTag = False
@@ -107,10 +105,8 @@ class CSV2MARC (object):
         self.getNewRecord(line["sysno"])
       
       if not self.fieldTag:
-        #print "[INFO] New field"
         self.getNewField(line)
       if self.checkFieldChange(line["fieldTag"], line["fieldTagOccurrence"]):
-        #print "[INFO] New field"
         self.record.add_field(self.field)
         self.getNewField(line)
       
